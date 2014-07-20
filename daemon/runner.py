@@ -156,7 +156,11 @@ class DaemonRunner(object):
     def _restart(self):
         """ Stop, then start.
             """
-        self._stop()
+        try:
+            self._stop()
+        except DaemonRunnerStopFailureError:
+            pass
+        
         self._start()
 
     action_funcs = {
